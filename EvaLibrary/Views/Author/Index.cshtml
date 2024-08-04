@@ -1,0 +1,40 @@
+@using EvaLibrary.Entities
+@model List<EvaLibrary.Entities.Author>
+
+<h1>Authors</h1>
+<br>
+@Html.ActionLink("Add", "add", "Author", htmlAttributes: new { @class = "btn btn-success"})
+<table class="table">
+    <thead>
+    <th>
+        Id
+    </th>
+    <th>
+        Name
+    </th>
+    <th>
+        BirthDate
+    </th>
+    <th>
+        # of Books
+    </th>
+    <th>
+        Actions
+    </th>
+    </thead>
+    <tbody>
+    @foreach (var author in Model)
+    {
+        <tr>
+            <td>@author.Id</td>
+            <td>@author.Name</td>
+            <td>@author.BirthDate</td>
+            <td>@author.Books.Count</td>
+            <td>
+                <a asp-action="Update" asp-route-id="@author.Id" class="btn btn-warning">Update</a>
+                <a asp-action="Delete" asp-route-id="@author.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

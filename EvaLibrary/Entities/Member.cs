@@ -15,5 +15,5 @@ public class Member
     [DataType(DataType.Date)]
     public DateOnly BirthDate { get; set; }
 
-    public ICollection<Book> Books { get; set; }
+    public ICollection<Borrow> Borrows { get; set; }
 }

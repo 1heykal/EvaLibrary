@@ -1,0 +1,12 @@
+@model EvaLibrary.Entities.Borrow
+
+<h1>Borrow a Book</h1>
+<form method="post">
+    <label>Book</label>
+    @Html.DropDownListFor(b => b.BookId, ViewBag.Books as SelectList, "select book")
+    
+    <label>Member</label>
+    @Html.DropDownListFor(b => b.MemberId, ViewBag.Members as SelectList, "select member")
+    
+    <button type="submit">Borrow</button>
+</form>

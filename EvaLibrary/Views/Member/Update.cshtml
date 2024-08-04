@@ -1,0 +1,12 @@
+@model EvaLibrary.Entities.Member
+
+<h1>Update a Member</h1>
+
+<form method="post">
+    <label>Name</label>
+    @Html.TextBoxFor(m => m.Name)
+    <br>
+    <label>Birth Date</label>
+    @Html.TextBoxFor(m => m.BirthDate, "{0:yyyy-MM-dd}", new { @type = "date"})
+    <button type="submit">Save</button>
+</form>

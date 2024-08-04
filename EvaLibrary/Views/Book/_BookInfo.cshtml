@@ -1,0 +1,25 @@
+@model EvaLibrary.Entities.Book
+
+       <div class="main">
+           <h1>Books</h1>
+           <a asp-action="Add" class="btn btn-success">Add</a>
+           <table class="table">
+               <thead>
+               <th>Id</th>
+               <th>Title</th>
+               <th>Genre</th>
+               <th>Publication Date</th>
+               <th>Author</th>
+               <th>Actions</th>
+               </thead>
+               <tbody>
+                   <tr>
+                       <td>@Model.Id</td>
+                       <td>@Model.Title</td>
+                       <td>@Model.Genre</td>
+                       <td>@Model.PublicationDate</td>
+                       <td>@Model.Author.Name</td>
+                   </tr>
+               </tbody>
+           </table>
+       </div>

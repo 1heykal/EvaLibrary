@@ -1,0 +1,29 @@
+@model List<EvaLibrary.Entities.Borrow>
+
+<h1>Borrowed Books</h1>
+@Html.ActionLink("Add", "Add", "Borrow", null, htmlAttributes: new { @class = "btn btn-success"})
+<table class="table">
+    <thead>
+    <th>Id</th>
+    <th>Book</th>
+    <th>Member</th>
+    <th>Borrow Date</th>
+    <th>Actions</th>
+    </thead>
+    <tbody>
+        @foreach (var borrow in Model)
+        {
+            <tr>
+                 <td>@borrow.Id</td>
+                 <td>@borrow.Book.Title</td>
+                 <td>@borrow.Member.Name</td>
+                 <td>@borrow.BorrowDate</td>
+                 <td>
+                     <a asp-action="Update" asp-route-id="@borrow.Id" class="btn btn-warning">Update</a>
+                     <a asp-action="Delete" asp-route-id="@borrow.Id" class="btn btn-danger">Delete</a>
+                 </td>
+                 
+            </tr>
+        }
+    </tbody>
+</table>

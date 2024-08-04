@@ -1,0 +1,14 @@
+@model EvaLibrary.Entities.Author
+
+<h1>
+    You're about to delete this Author
+</h1>
+
+<partial name="_AuthorInfo" model="@Model"/>
+
+<h3>Are you sure?</h3>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+</form>

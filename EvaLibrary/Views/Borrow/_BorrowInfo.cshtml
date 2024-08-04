@@ -1,0 +1,18 @@
+@model EvaLibrary.Entities.Borrow
+
+<table class="table">
+    <thead>
+    <th>Id</th>
+    <th>Book</th>
+    <th>Member</th>
+    <th>Borrow Date</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.Book.Title</td>
+        <td>@Model.Member.Name</td>
+        <td>@Model.BorrowDate</td>
+    </tr>
+    </tbody>
+</table>

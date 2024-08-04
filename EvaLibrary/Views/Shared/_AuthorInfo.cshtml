@@ -1,0 +1,18 @@
+@model EvaLibrary.Entities.Author
+
+<table class="table">
+    <thead>
+    <th>Id</th>
+    <th>Name</th>
+    <th>BirthDate</th>
+    <th># of Books</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.Name</td>
+        <td>@Model.BirthDate</td>
+        <td>@Model.Books.Count</td>
+    </tr>
+    </tbody>
+</table>

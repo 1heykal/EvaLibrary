@@ -1,0 +1,21 @@
+@model EvaLibrary.Entities.Book
+
+<h1>Add a Book</h1>
+
+<form method="post">
+    <label>Title</label>
+    @Html.TextBoxFor(b => b.Title)
+    <br>
+    <label>Genre</label>
+    @Html.TextBoxFor(b => b.Genre)
+    <br>
+    <label>Publication Date</label>
+    @Html.TextBoxFor(b => b.PublicationDate, "{0:yyyy-MM-dd}", new { @type = "date"})
+    <br>
+    <label>Author</label>
+    @Html.DropDownListFor(b => b.AuthorId, ViewBag.Authors as SelectList, "select author")
+    
+    <button type="submit">Add</button>
+    
+</form>
+

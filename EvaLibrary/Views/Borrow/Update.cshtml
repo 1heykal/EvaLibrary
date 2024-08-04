@@ -1,0 +1,33 @@
+@model EvaLibrary.Entities.Borrow
+
+<h1>Update a Record</h1>
+<form method="post">
+    <label>Book</label>
+    @Html.DropDownListFor(b => b.BookId, ViewBag.Books as SelectList, "select book")
+    
+    <label>Member</label>
+    @Html.DropDownListFor(b => b.MemberId, ViewBag.Members as SelectList, "select member")
+    
+    <label>Borrow Date</label>
+    @Html.TextBoxFor(a => a.BorrowDate, "{0:yyyy-MM-dd}", new { @type = "date"})
+    
+   @*** <select name="">
+        <option>select member</option>
+        @foreach (var option in ViewBag.Books as SelectList)
+        {
+            if (option.Value == Model.BookId.ToString())
+            {
+                <option value="@option.Value" selected>@option.Text</option>
+
+            }
+            else
+            {
+                <option value="@option.Value">@option.Text</option>
+
+            }
+        }
+    </select>
+***@
+    
+    <button type="submit">Save</button>
+</form>

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,6 +7,7 @@ namespace EvaLibrary.Entities;
 public class Book
 {
     [Key]
+    [DisplayName("BookId")]
     public int Id { get; set; }
 
     public string Title { get; set; }

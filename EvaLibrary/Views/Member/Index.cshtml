@@ -1,0 +1,33 @@
+@model List<EvaLibrary.Entities.Member>
+
+
+<h1> Our Members </h1>
+@Html.ActionLink("Add", "Add", "Member",null, htmlAttributes: new { @class = "btn btn-success"})
+<table class="table">
+    <thead>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Birth Date</th>
+    <th>Join Date</th>
+    <th># of Borrowed Books</th>
+    <th>Actions</th>
+    </thead>
+    <tbody>
+    @foreach (var member in Model)
+    {
+        <tr>
+            <td>@member.Id</td>
+            <td>@member.Name</td>
+            <td>@member.BirthDate</td>
+            <td>@member.JoinDate</td>
+            <td>@member.Borrows.Count</td>
+            <td>
+                <a asp-action="Update" asp-route-id="@member.Id" class="btn btn-warning">Update</a>
+                <a asp-action="Delete" asp-route-id="@member.Id" class="btn btn-danger">Delete</a>
+            </td>
+            
+        </tr>
+    }
+    </tbody>
+</table>
+

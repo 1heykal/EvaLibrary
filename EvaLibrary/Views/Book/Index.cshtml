@@ -1,0 +1,31 @@
+@model List<EvaLibrary.Entities.Book>
+<div class="main">
+    <h1>Books</h1>
+    <a asp-action="Add" class="btn btn-success">Add</a>
+    <table class="table">
+        <thead>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Publication Date</th>
+        <th>Author</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Title</td>
+                <td>@book.Genre</td>
+                <td>@book.PublicationDate</td>
+                <td>@book.Author.Name</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@book.Id" class="btn btn-warning">Update</a>
+                    <a asp-action="Delete" asp-route-id="@book.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
