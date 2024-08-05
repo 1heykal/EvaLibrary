@@ -1,5 +1,7 @@
 using EvaLibrary.DbContexts;
 using EvaLibrary.Entities;
+using EvaLibrary.Services.AuthorService;
+using EvaLibrary.Services.BookService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,15 +10,16 @@ namespace EvaLibrary.Controllers;
 
 public class BookController : Controller
 {
-    private readonly ApplicationDbContext _context;
-
-    public BookController(ApplicationDbContext context)
+    private readonly IBookService _bookService;
+    private readonly IAuthorService _authorService;
+    public BookController(IBookService bookService, IAuthorService authorService)
     {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _bookService = bookService ?? throw new ArgumentNullException(nameof(bookService));
+        _authorService = authorService ?? throw new ArgumentNullException(nameof(authorService));
     }
     public IActionResult Index()
     {
-        return View(_context.Books.Include(b => b.Author).ToList());
+        return View(_bookService.GetAllBooks());
     }
     
     public IActionResult Add()
@@ -27,16 +30,14 @@ public class BookController : Controller
 
     [HttpPost]
     public IActionResult Add(Book book)
-    {
-        _context.Books.Add(book);
-        _context.SaveChanges();
-
+    { 
+        _bookService.AddBook(book);
         return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Update(int id)
     {
-        var book = _context.Books.Include(b => b.Author).FirstOrDefault(b => b.Id == id);
+        var book = _bookService.GetBookById(id);
         ViewBag.Authors = FillAuthorsViewBag();
 
         return View(book);
@@ -45,29 +46,26 @@ public class BookController : Controller
     [HttpPost]
     public IActionResult Update(Book book)
     {
-        _context.Books.Update(book);
-        _context.SaveChanges();
-        return View();
+       _bookService.UpdateBook(book);
+       return View();
     }
 
     public IActionResult Delete(int id)
     {
-        var book = _context.Books.Include(b => b.Author).FirstOrDefault(b => b.Id == id);
+        var book = _bookService.GetBookById(id);
         return View(book);
     }
     
     [HttpPost]
     public IActionResult Delete(Book book)
     {
-        _context.Books.Remove(book);
-        _context.SaveChanges();
-        
+        _bookService.DeleteBook(book);
         return RedirectToAction(nameof(Index));
     }
 
     private SelectList FillAuthorsViewBag()
     {
-        var authors = _context.Authors.Select(a => new SelectListItem() { Value = a.Id.ToString(), Text = a.Name }).ToList();
+        var authors = _authorService.GetAllAuthors().Select(a => new SelectListItem() { Value = a.Id.ToString(), Text = a.Name }).ToList();
         return new SelectList(authors, "Value", "Text");
     }
 }

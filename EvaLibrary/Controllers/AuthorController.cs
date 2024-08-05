@@ -1,19 +1,26 @@
 using EvaLibrary.DbContexts;
 using EvaLibrary.Entities;
+using EvaLibrary.Services.AuthorService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EvaLibrary.Controllers
 {
-    public class AuthorController(ApplicationDbContext context) : Controller
+    public class AuthorController : Controller
     {
+        private readonly IAuthorService _authorService;
+
+        public AuthorController(IAuthorService authorService)
+        {
+            _authorService = authorService ?? throw new ArgumentNullException(nameof(authorService));
+        }
         public ActionResult Index()
         {
-            return View(context.Authors.Include(a => a.Books).ToList());
+            return View(_authorService.GetAllAuthors());
         }
         public IActionResult Details(int id)
         {
-            var author = context.Authors.Include(a => a.Books).FirstOrDefault(a => a.Id == id);
+            var author =_authorService.GetAuthorById(id);
             return View(author);
         }
 
@@ -26,41 +33,35 @@ namespace EvaLibrary.Controllers
         [HttpPost]
         public IActionResult Add(Author author)
         {
-            context.Authors.Add(author);
-            context.SaveChanges();
-
+            _authorService.AddAuthor(author);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public IActionResult Update(int id)
         {
-            var author = context.Authors.Find(id);
+            var author = _authorService.GetAuthorById(id);
             return View(author);
         }
 
         [HttpPost]
         public IActionResult Update(Author author)
         {
-            context.Authors.Update(author);
-            context.SaveChanges();
-
+            _authorService.UpdateAuthor(author);
             return RedirectToAction(nameof(Details),routeValues: new {id = author.Id});
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var author = context.Authors.Include(a => a.Books).FirstOrDefault(a => a.Id == id);
+            var author = _authorService.GetAuthorById(id);
             return View(author);
         }
 
         [HttpPost]
         public IActionResult Delete(Author author)
         {
-            context.Authors.Remove(author);
-            context.SaveChanges();
-
+            _authorService.DeleteAuthor(author);
             return RedirectToAction(nameof(Index));
         }
 

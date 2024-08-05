@@ -1,4 +1,8 @@
 using EvaLibrary.DbContexts;
+using EvaLibrary.Services.AuthorService;
+using EvaLibrary.Services.BookService;
+using EvaLibrary.Services.BorrowService;
+using EvaLibrary.Services.MemberService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +14,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration["ConnectionStrings:MSSQL"]);
 });
+
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IBorrowService, BorrowService>();
 
 var app = builder.Build();
 
